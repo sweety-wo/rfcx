@@ -6,34 +6,23 @@
     .controller('MainController', MainController);
 
   /** @ngInject */
-  function MainController($timeout, webDevTec, toastr) {
-    var vm = this;
+  function MainController($scope) {
+    /* created object to display navitems */
+    $scope.navItems = [
+      {title: 'Overview', iconClass: 'icon-home', name:'Overview'},
+      {title: 'Order history', iconClass: 'icon-text-document', name:'History'},
+      {title: 'Fluid layout', iconClass: 'icon-globe', name:'Fluid layout'},
+      {title: 'Icon-nav layout', iconClass: 'icon-area-graph', name:'Icon nav'},
+      {title: 'Docs', iconClass: 'icon-list', name:'Docs'},
+      {title: 'Light UI', iconClass: 'icon-flash', name:'Light UI'},
+    ];
 
-    vm.awesomeThings = [];
-    vm.classAnimation = '';
-    vm.creationDate = 1441816609287;
-    vm.showToastr = showToastr;
+    /* for setting currently active nav item */
+    $scope.isActive = 'Icon-nav layout';
 
-    activate();
-
-    function activate() {
-      getWebDevTec();
-      $timeout(function() {
-        vm.classAnimation = 'rubberBand';
-      }, 4000);
-    }
-
-    function showToastr() {
-      toastr.info('Fork <a href="https://github.com/Swiip/generator-gulp-angular" target="_blank"><b>generator-gulp-angular</b></a>');
-      vm.classAnimation = '';
-    }
-
-    function getWebDevTec() {
-      vm.awesomeThings = webDevTec.getTec();
-
-      angular.forEach(vm.awesomeThings, function(awesomeThing) {
-        awesomeThing.rank = Math.random();
-      });
-    }
+    /* handling click of navitems */
+    $scope.fnRedirectTo = function(title){
+      $scope.isActive = title;
+    };
   }
 })();
